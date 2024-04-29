@@ -198,3 +198,24 @@
 ### Result
 - Successfully exploiting the misconfigurations in SMB and SQL Server not only grants unauthorized access but also allows for deeper system interaction, potentially leading to full system control if administrative privileges can be escalated. This scenario exemplifies the critical importance of securing configuration files and service settings on servers.
 
+
+## ***Oopsie Box***
+
+### Introduction
+- "Oopsie" is an educational scenario focused on exploring common web vulnerabilities like Information Disclosure and Broken Access Control. The scenario highlights the importance of thoroughly understanding how authentication mechanisms and access control are implemented in web applications.
+
+### Enumeration
+- Start with an nmap scan to identify open ports and services, particularly focusing on port 22 (SSH) and port 80 (HTTP). Explore the web application using a web browser and tools like Burp Suite to understand the site structure and identify potential entry points for further exploitation.
+
+### Foothold
+- Use Burp Suite to passively spider the website, identifying hidden directories and files such as the `/cdn-cgi/login` directory, which contains the login page. Explore functionalities available to guest users and attempt to escalate privileges by manipulating cookies and session information.
+
+### Lateral Movement
+- Investigate possible ways to escalate privileges from a guest user to a super admin role by manipulating cookies in the browser. Explore the application’s response to changes in cookie values to access restricted areas of the website, such as the uploads section.
+
+### Privilege Escalation
+- After gaining access to sensitive functionalities like file uploads, attempt to upload a PHP reverse shell to gain remote command execution. Use tools like netcat to listen for incoming connections from the web server, establishing a reverse shell session.
+
+### Result
+- Successfully exploiting the web application through a series of vulnerabilities—from information disclosure to broken access control—demonstrates the compound effect of seemingly minor security issues. Gaining a reverse shell and escalating privileges within the system highlights the critical need for comprehensive security measures in web applications.
+
