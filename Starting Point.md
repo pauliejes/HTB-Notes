@@ -219,3 +219,22 @@
 ### Result
 - Successfully exploiting the web application through a series of vulnerabilities—from information disclosure to broken access control—demonstrates the compound effect of seemingly minor security issues. Gaining a reverse shell and escalating privileges within the system highlights the critical need for comprehensive security measures in web applications.
 
+
+## ***Vaccine Box***
+
+### Introduction
+- The "Vaccine" scenario emphasizes the importance of enumeration and the power of password cracking in penetration testing. It demonstrates that even systems that appear secure can often be accessed through chaining minor vulnerabilities or exploiting common misconfigurations like weak passwords.
+
+### Enumeration
+- Begin with an nmap scan to identify open services, focusing on FTP (port 21), SSH (port 22), and HTTP (port 80). Explore the FTP service to discover and download files such as `backup.zip`, which requires password extraction and potentially contains sensitive information.
+
+### Foothold
+- Utilize tools like John the Ripper to crack the password of the `backup.zip` file. Extract contents such as configuration files or scripts that might contain credentials or hints for further exploitation. Use these credentials to access other parts of the system, such as a web administration interface.
+
+### Privilege Escalation
+- After gaining initial access, explore further for SQL injection vulnerabilities using tools like SQLmap. Leverage found vulnerabilities to execute commands on the server or escalate privileges. Explore common web application files and configurations for additional credentials or misconfigurations.
+- Utilize any disclosed credentials to attempt SSH access or further elevate privileges through potential sudo misconfigurations or exploitable system processes.
+
+### Result
+- Successfully exploiting the chain of vulnerabilities from weak passwords to SQL injection demonstrates the layered approach often necessary in penetration testing. It highlights the critical importance of thorough enumeration and the effective use of various tools to uncover and exploit vulnerabilities in a system.
+
