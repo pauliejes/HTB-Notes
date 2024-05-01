@@ -156,27 +156,27 @@
 ## ***Three Box***
 
 ### Introduction
-- This scenario focuses on exploiting a poorly configured AWS S 3 bucket in a Linux environment to upload and execute a reverse shell. It highlights the importance of secure cloud configuration to prevent unauthorized access and data breaches.
+- This scenario focuses on exploiting a poorly configured AWS S3 bucket in a Linux environment to upload and execute a reverse shell. It highlights the importance of secure cloud configuration to prevent unauthorized access and data breaches.
 
 ### Enumeration
 - Begin with an nmap scan to identify open ports, specifically looking for HTTP (port 80) and SSH (port 22). Use commands like `sudo nmap -sV [target IP]` to determine the services running on these ports.
 
 ### Sub-domain Enumeration
-- Investigate potential subdomains using tools like Gobuster, identifying services such as a misconfigured S 3 bucket subdomain (e.g., s 3. Thetoppers. Htb). This step involves DNS adjustments in the `/etc/hosts` file to resolve new subdomains for further exploration.
+- Investigate potential subdomains using tools like Gobuster, identifying services such as a misconfigured S3 bucket subdomain (e.g., S3. Thetoppers. Htb). This step involves DNS adjustments in the `/etc/hosts` file to resolve new subdomains for further exploration.
 
-### What is an S 3 Bucket?
-- Understand the functionality of AWS S 3 buckets as cloud-based storage solutions. Identify the bucket in use by the target application for storing web content, which can include sensitive configuration files or executable scripts.
+### What is an S3 Bucket?
+- Understand the functionality of AWS S3 buckets as cloud-based storage solutions. Identify the bucket in use by the target application for storing web content, which can include sensitive configuration files or executable scripts.
 
-### Exploiting the S 3 Bucket
-- Utilize the AWS CLI tool to interact with the S 3 bucket, checking for publicly accessible files or misconfigured permissions that allow file uploads. Use `aws --endpoint=http://s3.thetoppers.htb s3 ls` to list contents and `aws --endpoint=http://s3.thetoppers.htb s3 cp [file] s3://thetoppers.htb` to upload files.
-- Explore uploading a PHP reverse shell script to the S 3 bucket, which is being used as the webroot by the Apache server. This allows for remote code execution by navigating to the script via a web browser.
+### Exploiting the S3 Bucket
+- Utilize the AWS CLI tool to interact with the S3 bucket, checking for publicly accessible files or misconfigured permissions that allow file uploads. Use `aws --endpoint=http://s3.thetoppers.htb s3 ls` to list contents and `aws --endpoint=http://s3.thetoppers.htb s3 cp [file] s3://thetoppers.htb` to upload files.
+- Explore uploading a PHP reverse shell script to the S3 bucket, which is being used as the webroot by the Apache server. This allows for remote code execution by navigating to the script via a web browser.
 
 ### Gaining a Reverse Shell
 - After uploading the PHP reverse shell, execute it by accessing the file through the web browser with a parameter that triggers a system command. This can lead to obtaining a reverse shell if the server's configuration permits executing such scripts.
 - Establish a listener on your local machine using tools like `nc` and then trigger the server to connect back to this listener, completing the reverse shell connection.
 
 ### Result
-- Successfully exploiting the S 3 bucket to upload and execute a reverse shell demonstrates significant security flaws in the cloud configuration. It underscores the need for rigorous security measures in cloud environments to protect against unauthorized access and potential data leaks.
+- Successfully exploiting the S3 bucket to upload and execute a reverse shell demonstrates significant security flaws in the cloud configuration. It underscores the need for rigorous security measures in cloud environments to protect against unauthorized access and potential data leaks.
 
 
 ## ***Archetype Box***
@@ -237,4 +237,22 @@
 
 ### Result
 - Successfully exploiting the chain of vulnerabilities from weak passwords to SQL injection demonstrates the layered approach often necessary in penetration testing. It highlights the critical importance of thorough enumeration and the effective use of various tools to uncover and exploit vulnerabilities in a system.
+
+
+## ***Unified Box***
+
+### Introduction
+- The "Unified" scenario provides an exploration of exploiting the Log4J vulnerability in a network appliance monitoring system called "UniFi". This box demonstrates setting up necessary tools to exploit the Log4J vulnerability, manipulate HTTP headers for reverse shell access, and manipulate data within a MongoDB database to gain administrative access.
+
+### Enumeration
+- Begin by scanning the target with Nmap to identify open ports and services, focusing on HTTP and HTTP proxy services. This helps in identifying potential entry points such as web portals where vulnerabilities like Log4J can be exploited.
+
+### Exploitation
+- Utilize the Log4J vulnerability by crafting malicious inputs in HTTP headers to execute remote code. Set up an environment to capture and execute incoming LDAP requests by using tools like `tcpdump` and `Rogue-JNDI`, which help in executing arbitrary code on the vulnerable system.
+
+### Privilege Escalation
+- Once initial access is gained, focus on escalating privileges by manipulating data stored in MongoDB. Change administrative credentials within the database to gain higher-level access to the system. Additionally, explore the system to uncover further exploitable misconfigurations or credentials that could lead to gaining root access.
+
+### Result
+- Successfully exploiting the system through the Log4J vulnerability and subsequent manipulation of database entries demonstrates complex attack vectors that combine software flaws with misconfigurations. This scenario underscores the critical need for thorough security configurations and regular updates to both software and administrative credentials.
 
